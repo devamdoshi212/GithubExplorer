@@ -1,11 +1,17 @@
-import "./App.css";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-function App() {
-  return (
-    <>
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
-    </>
-  );
-}
+import React from "react";
+import Home from "./pages/Home";
+import ErrorPage from "./pages/ErrorPage";
+const routes = createBrowserRouter([
+  {
+    path: "/",
+    element: <Home />,
+    errorElement: <ErrorPage />,
+  },
+]);
+const App = () => {
+  return <RouterProvider router={routes}></RouterProvider>;
+};
 
 export default App;
