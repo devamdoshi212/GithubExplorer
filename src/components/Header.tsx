@@ -9,6 +9,8 @@ import {
   useColorModeValue,
   Stack,
 } from "@chakra-ui/react";
+import { NavLink as RouterLink } from "react-router-dom";
+
 import { FaGithub } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoClose } from "react-icons/io5";
@@ -21,14 +23,20 @@ const Links = [
 
 const NavLink = ({ href, children }: { href: string; children: ReactNode }) => (
   <Link
+    as={RouterLink}
+    _activeLink={{
+      bg: useColorModeValue("gray.300", "gray.300"),
+      color: useColorModeValue("black", "black"),
+    }}
     px={2}
     py={1}
+    bg={useColorModeValue("gray.800", "gray.800")}
     rounded={"md"}
     _hover={{
       textDecoration: "none",
-      bg: useColorModeValue("gray.800", "gray.800"),
+      bg: useColorModeValue("gray.400", "gray.400"),
     }}
-    href={href}
+    to={href}
   >
     {children}
   </Link>
@@ -73,8 +81,8 @@ export default function Header() {
               marginLeft={"12px"}
               display={{ base: "none", md: "flex" }}
             >
-              {Links.map((link) => (
-                <NavLink key={link.link} href={link.link}>
+              {Links.map((link, index) => (
+                <NavLink key={index} href={link.link}>
                   {link.label}
                 </NavLink>
               ))}
@@ -85,8 +93,8 @@ export default function Header() {
         {isOpen ? (
           <Box pb={4} display={{ md: "none" }}>
             <Stack as={"nav"} spacing={4}>
-              {Links.map((link) => (
-                <NavLink key={link.link} href={link.link}>
+              {Links.map((link, index) => (
+                <NavLink key={index} href={link.link}>
                   {link.label}
                 </NavLink>
               ))}
