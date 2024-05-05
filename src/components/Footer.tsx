@@ -1,5 +1,4 @@
 import { FaGithub } from "react-icons/fa";
-import React from "react";
 import {
   Box,
   Container,
