@@ -195,7 +195,7 @@ const Home: React.FC = () => {
                 <BiSearch size={20} />
               </InputLeftElement>
               <Input
-                type="tel"
+                type="search"
                 placeholder="Search"
                 value={search}
                 onChange={(e) => {
