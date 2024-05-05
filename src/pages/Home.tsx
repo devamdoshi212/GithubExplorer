@@ -259,7 +259,7 @@ const Home: React.FC = () => {
         )}
         {status == "succeeded" && (
           <>
-            <SimpleGrid columns={1} spacing={5} paddingX={[4, 6, 8, 10]}>
+            <SimpleGrid columns={[1, 2]} spacing={5} paddingX={[4, 6, 8, 10]}>
               {AllRepository &&
                 AllRepository.map((repo, index) => {
                   return <CustomCard key={index} data={repo}></CustomCard>;
