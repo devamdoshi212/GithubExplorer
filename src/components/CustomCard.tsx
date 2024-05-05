@@ -11,9 +11,14 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { FaStar } from "react-icons/fa";
+import { TbGitFork } from "react-icons/tb";
 import { RepoSearchResultItem } from "../models";
-const Logo = () => {
+import { Link } from "react-router-dom";
+const StarLogo = () => {
   return <FaStar size={15} />;
+};
+const ForkLogo = () => {
+  return <TbGitFork size={18} />;
 };
 function formatTimeAgo(updatedTime: string) {
   const currentTime = new Date();
@@ -34,9 +39,9 @@ function formatTimeAgo(updatedTime: string) {
     return `${seconds} second${seconds > 1 ? "s" : ""} ago`;
   }
 }
-function starCount(star: number) {
+function Count(star: number) {
   if (star > 1000) {
-    return `${Math.floor(star / 1000)}k`;
+    return `${(star / 1000).toFixed(2)}k`;
   }
   return star;
 }
@@ -52,15 +57,16 @@ const CustomCard = ({ data }: { data: RepoSearchResultItem }) => {
               name="Username"
               src={data.owner?.avatar_url}
             />
-            <Text
-              ml={3}
-              maxW="1000px"
-              overflow="hidden"
-              whiteSpace="nowrap"
-              textOverflow="ellipsis"
-            >
-              {data.full_name}
-            </Text>
+            <Link to={data.html_url} target="_blank">
+              <Text
+                maxW={["300px", "1000px"]}
+                overflow="hidden"
+                whiteSpace="nowrap"
+                textOverflow="ellipsis"
+              >
+                {data.full_name}
+              </Text>
+            </Link>
           </Flex>
           <Text
             maxW="1400px"
@@ -79,16 +85,27 @@ const CustomCard = ({ data }: { data: RepoSearchResultItem }) => {
           </Wrap>
           <Flex align={"center"} gap={2}>
             {data.language && (
-              <Tag size={"md"} variant="solid" colorScheme="teal">
+              <Tag
+                size={"md"}
+                variant="solid"
+                colorScheme="teal"
+                fontSize={["0.7rem", "1rem"]}
+              >
                 {data.language}
               </Tag>
             )}
             <Box display={"flex"} alignItems={"center"}>
-              <Logo />
-              <Text marginLeft={1}>{starCount(data.stargazers_count)}</Text>
+              <StarLogo />
+              <Text marginLeft={1}>{Count(data.stargazers_count)}</Text>
+            </Box>
+            <Box display={"flex"} alignItems={"center"}>
+              <ForkLogo />
+              <Text marginLeft={1}>{Count(data.forks_count)}</Text>
             </Box>
             <Box display={"flex"}>
-              <Text>Updated {formatTimeAgo(data.updated_at)}</Text>
+              <Text fontSize={["0.8rem", "1rem"]}>
+                Updated {formatTimeAgo(data.updated_at)}
+              </Text>
             </Box>
           </Flex>
         </Stack>

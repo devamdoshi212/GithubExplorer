@@ -15,8 +15,16 @@ const initialState: RepositoryState = {
   error: null,
 };
 export const fetchRepo = createAsyncThunk("searchRepo", async (URL: string) => {
-  const response = await fetch(URL);
-  return response.json();
+  const response = await fetch(URL, {
+    headers: {
+      Accept: "application/vnd.github+json",
+      "X-GitHub-Api-Version": "2022-11-28",
+      Authorization:
+        "Bearer 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",
+    },
+  });
+
+  return await response.json();
 });
 const repositorySlice = createSlice({
   name: "repository",
@@ -33,9 +41,9 @@ const repositorySlice = createSlice({
       })
       .addCase(fetchRepo.fulfilled, (state, action) => {
         state.status = "succeeded";
+        state.error = null;
         state.repositories = action.payload.items;
         state.count = action.payload.total_count;
-        console.log(action.payload);
       });
   },
 });

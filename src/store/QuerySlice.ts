@@ -8,7 +8,8 @@ interface QuerySlice {
   per_page: number; //default 30 max 100
   page: number;
   order: "desc" | "asc";
-  sort: "stars" | "updated" | "created";
+  sort: "stars" | "updated" | "created" | "forks";
+  topic: string;
 }
 const initialState: QuerySlice = {
   baseUrl: "https://api.github.com/search/repositories",
@@ -18,6 +19,7 @@ const initialState: QuerySlice = {
   page: 1,
   order: "desc",
   sort: "stars",
+  topic: "",
 };
 
 const QuerySlice = createSlice({
@@ -27,29 +29,22 @@ const QuerySlice = createSlice({
     setParams: (state, payload) => {
       const newBaseURL = new URL(state.baseUrl);
       const params = new URLSearchParams(newBaseURL.search);
-
       Object.entries(payload.payload).forEach(([key, value]) => {
-        if (key == "q" && value == "") {
-          params.set(key, "Q");
-        } else {
-          params.set(key, value + "");
-        }
+        params.set(key, value + "");
       });
 
+      if (params.has("q") && params.get("q") == "") {
+        params.set("q", "stars:>1");
+      }
+      if (params.has("topic") && params.get("topic") == "") {
+        params.delete("topic");
+      }
+      if (params.has("topic")) {
+        params.set("q", params.get("q") + " in:" + params.get("topic"));
+        params.delete("topic");
+      }
       state.api = state.baseUrl + "?" + params.toString();
-      console.log(state.api);
     },
-    // initParam: (state) => {
-    //   const newBaseURL = new URL(state.baseUrl);
-    //   const params = new URLSearchParams(newBaseURL.search);
-    //   params.set("q", "Q");
-    //   params.set("per_page", state.per_page + "");
-    //   params.set("page", state.page + "");
-    //   params.set("sort", state.sort);
-    //   params.set("order", state.order);
-    //   state.api = state.baseUrl + "?" + params.toString();
-    //   console.log(state.api);
-    // },
   },
 });
 
