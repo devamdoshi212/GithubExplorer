@@ -63,6 +63,7 @@ const CustomCard = ({ data }: { data: RepoSearchResultItem }) => {
                 overflow="hidden"
                 whiteSpace="nowrap"
                 textOverflow="ellipsis"
+                color="white"
               >
                 {data.full_name}
               </Text>
@@ -73,6 +74,7 @@ const CustomCard = ({ data }: { data: RepoSearchResultItem }) => {
             overflow="hidden"
             whiteSpace="nowrap"
             textOverflow="ellipsis"
+            color="white"
           >
             {data.description}
           </Text>
@@ -96,14 +98,18 @@ const CustomCard = ({ data }: { data: RepoSearchResultItem }) => {
             )}
             <Box display={"flex"} alignItems={"center"}>
               <StarLogo />
-              <Text marginLeft={1}>{Count(data.stargazers_count)}</Text>
+              <Text marginLeft={1} color="white">
+                {Count(data.stargazers_count)}
+              </Text>
             </Box>
             <Box display={"flex"} alignItems={"center"}>
               <ForkLogo />
-              <Text marginLeft={1}>{Count(data.forks_count)}</Text>
+              <Text color="white" marginLeft={1}>
+                {Count(data.forks_count)}
+              </Text>
             </Box>
             <Box display={"flex"}>
-              <Text fontSize={["0.8rem", "1rem"]}>
+              <Text color="white" fontSize={["0.8rem", "1rem"]}>
                 Updated {formatTimeAgo(data.updated_at)}
               </Text>
             </Box>
