@@ -11,6 +11,7 @@ import {
   InputLeftElement,
   Select,
   SimpleGrid,
+  Spacer,
   Stack,
   Text,
   Wrap,
@@ -189,6 +190,7 @@ const Home: React.FC = () => {
               </option>
             </Select>
           </Stack>
+          <Spacer />
           <Stack spacing={4}>
             <InputGroup>
               <InputLeftElement pointerEvents="none">
