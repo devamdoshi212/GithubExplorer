@@ -15,10 +15,10 @@ import { TbGitFork } from "react-icons/tb";
 import { RepoSearchResultItem } from "../models";
 import { Link } from "react-router-dom";
 const StarLogo = () => {
-  return <FaStar size={15} />;
+  return <FaStar size={15} style={{ color: "white" }} />;
 };
 const ForkLogo = () => {
-  return <TbGitFork size={18} />;
+  return <TbGitFork size={18} style={{ color: "white" }} />;
 };
 function formatTimeAgo(updatedTime: string) {
   const currentTime = new Date();
@@ -59,11 +59,12 @@ const CustomCard = ({ data }: { data: RepoSearchResultItem }) => {
             />
             <Link to={data.html_url} target="_blank">
               <Text
-                maxW={["300px", "1000px"]}
+                maxW={["295px", "1000px"]}
                 overflow="hidden"
                 whiteSpace="nowrap"
                 textOverflow="ellipsis"
                 color="white"
+                marginLeft={2}
               >
                 {data.full_name}
               </Text>
@@ -85,7 +86,7 @@ const CustomCard = ({ data }: { data: RepoSearchResultItem }) => {
               </Badge>
             ))}
           </Wrap>
-          <Flex align={"center"} gap={2}>
+          <Flex align={"center"} gap={2} fontSize={["10px", "15px"]}>
             {data.language && (
               <Tag
                 size={"md"}
@@ -109,7 +110,7 @@ const CustomCard = ({ data }: { data: RepoSearchResultItem }) => {
               </Text>
             </Box>
             <Box display={"flex"}>
-              <Text color="white" fontSize={["0.8rem", "1rem"]}>
+              <Text color="white">
                 Updated {formatTimeAgo(data.updated_at)}
               </Text>
             </Box>
